@@ -40,13 +40,17 @@ class gglitely(Figure):
         temp.add_trace(geom)
         return temp
     def __or__(self,other):
-        n1,n2 = len(self.data),len(other.data)
-        temp = gglitely(data=list(self.data)+list(other.data))
+        temp = make_subplots(rows=1, cols=2)
+        temp.update_layout(template="plotly_white")
+        temp.update_layout(width=600, height=400)        
+        for geom in self.data:
+            temp.add_trace(geom,row=1,col=1)
+        for geom in other.data: 
+            temp.add_trace(geom,row=1,col=2)
         return temp
-        
     def resize(self,width=600,height=400):
         self.update_layout(width=width, height=height)
-        return self
+        return self        
 
 #---#
 class point(go.Scatter):
@@ -94,8 +98,14 @@ class col(go.Bar):
         color = kwargs.pop('color', kwargs.pop('colour', kwargs.pop('col', None)))
         if isinstance(color,int):
             color = COL_MAPPING[color]
+        marker = dict(
+            size=size,
+            color=color,
+            opacity=opacity,
+            symbol=symbol,
+        )
         kwargs['opacity'] = opacity
-        kwargs['color'] = color
+        kwargs['marker'] = dict(color=color)
         super().__init__(*args, **kwargs)
 
 bar = col 
@@ -109,7 +119,7 @@ class boxplot(go.Box):
         if isinstance(color,int):
             color = COL_MAPPING[color]
         kwargs['opacity'] = opacity
-        kwargs['color'] = opacity
+        kwargs['marker'] = dict(color=color)
         super().__init__(*args, **kwargs)
 
 class histogram(go.Histogram):
@@ -121,7 +131,7 @@ class histogram(go.Histogram):
         if isinstance(color,int):
             color = COL_MAPPING[color]
         kwargs['opacity'] = opacity
-        kwargs['color'] = opacity
+        kwargs['marker'] = dict(color=color)
         super().__init__(*args, **kwargs)
 
 #---#
