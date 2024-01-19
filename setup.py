@@ -8,7 +8,7 @@ setup(
         author='seoyeon',
         author_email='',
         license='',
-        packages=find_pacakges(),
+        packages=find_packages(),
         install_requires=['pandas']
 )
 
