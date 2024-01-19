@@ -71,6 +71,7 @@ class point(go.Scatter):
 class line(go.Scatter):
     def __init__(self, *args, **kwargs):
         opacity = kwargs.pop('opacity', kwargs.pop('alpha', 1))
+        print(opacity)
         color = kwargs.pop('colour', kwargs.pop('col', kwargs.pop('color', None)))
         if isinstance(color,int):
             color = COL_MAPPING[color]
@@ -79,7 +80,6 @@ class line(go.Scatter):
             dash = LTY_MAPPING[dash]  
         symbol = kwargs.pop('symbol',kwargs.pop('pch', kwargs.pop('shape', 'circle')))                  
         width = kwargs.pop('lwd', kwargs.pop('linewidth', kwargs.pop('width', None)))
-        opacity = kwargs.pop('alpha', kwargs.pop('opacity', 1))
         kwargs['line'] = dict(color=color, width=width, dash=dash)
         kwargs['opacity'] = opacity
         super().__init__(mode='lines', *args, **kwargs)
