@@ -71,8 +71,6 @@ class point(go.Scatter):
 class line(go.Scatter):
     def __init__(self, *args, **kwargs):
         opacity = kwargs.pop('opacity', kwargs.pop('alpha', 1))
-        if isinstance(opacity, list) or isinstance(opacity, np.ndarray):
-            opacity = np.array(opacity) / np.array(opacity).max()        
         color = kwargs.pop('colour', kwargs.pop('col', kwargs.pop('color', None)))
         if isinstance(color,int):
             color = COL_MAPPING[color]
