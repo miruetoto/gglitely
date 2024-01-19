@@ -40,15 +40,16 @@ class gglitely(Figure):
         temp.add_trace(geom)
         return temp
     def __or__(self,other):
-        temp = make_subplots(rows=1, cols=2)
-        temp.update_layout(template="plotly_white")
-        temp.update_layout(width=600, height=400)        
-        for geom in self.data:
-            temp.add_trace(geom,row=1,col=1)
-        for geom in other.data: 
-            temp.add_trace(geom,row=1,col=2)
-        temp = gglitely(data=temp.data, layout=temp.layout)            
-        return temp
+        n1 = len([key for key in self.layout if 'xaxis' in key])
+        n2 = len([key for key in other.layout if 'xaxis' in key])
+        if (n1<=1) and (n2<=1):
+            temp = make_subplots(rows=1, cols=2)
+            for geom in self.data:
+                temp.add_trace(geom,row=1,col=1)
+            for geom in other.data: 
+                temp.add_trace(geom,row=1,col=2)
+            temp = gglitely(data=temp.data, layout=temp.layout)            
+            return temp
     def resize(self,width=600,height=400):
         self.update_layout(width=width, height=height)
         return self        
