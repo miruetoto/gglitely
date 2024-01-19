@@ -35,6 +35,10 @@ class gglitely(Figure):
         super().__init__(*args, **kwargs)
         self.update_layout(template="plotly_white")
         self.update_layout(width=600, height=400)
+        self.update_layout(barmode='overlay')
+        self.update_layout(title_text=None)
+        self.update_layout(xaxis_title_text=None)
+        self.update_layout(yaxis_title_text=None)
     def __add__(self,geom):
         temp = gglitely(data=self.data, layout=self.layout, frames=self.frames)
         temp.add_trace(geom)
