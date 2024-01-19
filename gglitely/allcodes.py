@@ -47,7 +47,7 @@ class gglitely(Figure):
             temp.add_trace(geom,row=1,col=1)
         for geom in other.data: 
             temp.add_trace(geom,row=1,col=2)
-        return temp = gglitely(data=temp.data, layout=temp.layout)
+        return gglitely(data=temp.data, layout=temp.layout)
     def resize(self,width=600,height=400):
         self.update_layout(width=width, height=height)
         return self        
