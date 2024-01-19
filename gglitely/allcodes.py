@@ -78,7 +78,7 @@ class line(go.Scatter):
             color = COL_MAPPING[color]
         dash = kwargs.pop('lty', kwargs.pop('linetype', kwargs.pop('dash', None)))            
         if isinstance(dash,int):
-            dash = lty_mapping[dash]  
+            dash = LTY_MAPPING[dash]  
         symbol = kwargs.pop('symbol',kwargs.pop('pch', kwargs.pop('shape', 'circle')))                  
         width = kwargs.pop('lwd', kwargs.pop('linewidth', kwargs.pop('width', None)))
         opacity = kwargs.pop('alpha', kwargs.pop('opacity', 1))
