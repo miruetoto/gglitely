@@ -98,12 +98,6 @@ class col(go.Bar):
         color = kwargs.pop('color', kwargs.pop('colour', kwargs.pop('col', None)))
         if isinstance(color,int):
             color = COL_MAPPING[color]
-        marker = dict(
-            size=size,
-            color=color,
-            opacity=opacity,
-            symbol=symbol,
-        )
         kwargs['opacity'] = opacity
         kwargs['marker'] = dict(color=color)
         super().__init__(*args, **kwargs)
