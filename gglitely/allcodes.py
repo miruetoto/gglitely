@@ -90,7 +90,30 @@ class col(go.Bar):
         if isinstance(color,int):
             color = COL_MAPPING[color]
         kwargs['opacity'] = opacity
-        super().__init__(*args, **kwargs)        
+        super().__init__(*args, **kwargs)
+bar = col 
+
+class boxplot(go.Box):
+    def __init__(self, *args, **kwargs):
+        opacity = kwargs.pop('opacity', kwargs.pop('alpha', 1))
+        if isinstance(opacity, (list, np.ndarray)):
+            opacity = opacity[0] if len(opacity) == 1 else np.array(opacity) / np.array(opacity).max()
+        color = kwargs.pop('color', kwargs.pop('colour', kwargs.pop('col', None)))
+        if isinstance(color,int):
+            color = COL_MAPPING[color]
+        kwargs['opacity'] = opacity
+        super().__init__(*args, **kwargs)
+
+class histogram(go.Histogram):
+    def __init__(self, *args, **kwargs):
+        opacity = kwargs.pop('opacity', kwargs.pop('alpha', 1))
+        if isinstance(opacity, (list, np.ndarray)):
+            opacity = opacity[0] if len(opacity) == 1 else np.array(opacity) / np.array(opacity).max()
+        color = kwargs.pop('color', kwargs.pop('colour', kwargs.pop('col', None)))
+        if isinstance(color,int):
+            color = COL_MAPPING[color]
+        kwargs['opacity'] = opacity
+        super().__init__(*args, **kwargs)
 
 #---#
 
