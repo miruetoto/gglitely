@@ -44,44 +44,53 @@ class gglitely(Figure):
         return self
 
 #---#
-
 class point(go.Scatter):
     def __init__(self, *args, **kwargs):       
         opacity = kwargs.pop('opacity', kwargs.pop('alpha', 1))
-        if isinstance(opacity, list) or isinstance(opacity, np.ndarray):
-            opacity = np.array(opacity) / np.array(opacity).max()
-        color = kwargs.pop('colour', kwargs.pop('col', kwargs.pop('color', None)))
+        if isinstance(opacity, (list, np.ndarray)):
+            opacity = opacity[0] if len(opacity) == 1 else np.array(opacity) / np.array(opacity).max()
+        color = kwargs.pop('color', kwargs.pop('colour', kwargs.pop('col', None)))
         if isinstance(color,int):
             color = COL_MAPPING[color]
-        symbol = kwargs.pop('symbol',kwargs.pop('pch', kwargs.pop('shape', 'circle')))
-        size = kwargs.pop('cex', kwargs.pop('size', None))            
-        fillcolor = kwargs.pop('fill', None)             
-        line = kwargs.pop('stroke', None)
+        symbol = kwargs.pop('symbol',kwargs.pop('shape', kwargs.pop('pch', 'circle')))
+        size = kwargs.pop('size', kwargs.pop('cex', None))
         marker = dict(
             size=size,
             color=color,
             opacity=opacity,
-            line=line,
-            symbol=symbol
+            symbol=symbol,
         )
-        if fillcolor:
-            marker['fillcolor'] = fillcolor
         kwargs['marker'] = marker
         super().__init__(mode='markers', *args, **kwargs)
 class line(go.Scatter):
     def __init__(self, *args, **kwargs):
         opacity = kwargs.pop('opacity', kwargs.pop('alpha', 1))
-        color = kwargs.pop('colour', kwargs.pop('col', kwargs.pop('color', None)))
+        if isinstance(opacity, (list, np.ndarray)):
+            opacity = opacity[0] if len(opacity) == 1 else np.array(opacity) / np.array(opacity).max()        
+        color = kwargs.pop('color', kwargs.pop('colour', kwargs.pop('col', None)))
         if isinstance(color,int):
             color = COL_MAPPING[color]
-        dash = kwargs.pop('lty', kwargs.pop('linetype', kwargs.pop('dash', None)))            
+        dash = kwargs.pop('dash', kwargs.pop('linetype', kwargs.pop('lty', None)))            
         if isinstance(dash,int):
-            dash = LTY_MAPPING[dash]  
-        symbol = kwargs.pop('symbol',kwargs.pop('pch', kwargs.pop('shape', 'circle')))                  
-        width = kwargs.pop('lwd', kwargs.pop('linewidth', kwargs.pop('width', None)))
-        kwargs['line'] = dict(color=color, width=width, dash=dash)
+            dash = LTY_MAPPING[dash]                
+        width = kwargs.pop('width', kwargs.pop('linewidth', kwargs.pop('lwd', None)))
+        kwargs['line'] = dict(
+            color=color, 
+            width=width, 
+            dash=dash
+        )
         kwargs['opacity'] = opacity
         super().__init__(mode='lines', *args, **kwargs)
+class col(go.Bar):
+    def __init__(self, *args, **kwargs):
+        opacity = kwargs.pop('opacity', kwargs.pop('alpha', 1))
+        if isinstance(opacity, (list, np.ndarray)):
+            opacity = opacity[0] if len(opacity) == 1 else np.array(opacity) / np.array(opacity).max()
+        color = kwargs.pop('color', kwargs.pop('colour', kwargs.pop('col', None)))
+        if isinstance(color,int):
+            color = COL_MAPPING[color]
+        kwargs['opacity'] = opacity
+        super().__init__(*args, **kwargs)        
 
 #---#
 
