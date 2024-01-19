@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from plotly.graph_objs._figure import Figure
 import numpy as np
 
+#---#
 
 class gglitely(Figure):
     def __init__(self, *args, **kwargs):
@@ -19,7 +20,9 @@ class gglitely(Figure):
     def resize(self,width=600,height=400):
         self.update_layout(width=width, height=height)
         return self
-        
+
+#---#
+
 class point(go.Scatter):
     def __init__(self, *args, **kwargs):       
         color = kwargs.pop('colour', kwargs.pop('col', kwargs.pop('color', None)))
@@ -96,3 +99,14 @@ class line(go.Scatter):
         kwargs['line'] = dict(color=color, width=width, dash=dash)
         kwargs['opacity'] = opacity
         super().__init__(mode='lines', *args, **kwargs)
+
+#---#
+
+
+def litely(fig):
+    plotly_fig = tls.mpl_to_plotly(fig)
+    gglitely_fig = gglitely(data=plotly_fig.data, layout=plotly_fig.layout, frames=plotly_fig.frames)
+    gglitely_fig.layout = None
+    gglitely_fig.update_layout(template="plotly_white")
+    gglitely_fig.update_layout(width=600, height=400)
+    return gglitely_fig
