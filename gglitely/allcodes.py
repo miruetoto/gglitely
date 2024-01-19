@@ -35,14 +35,19 @@ class gglitely(Figure):
         super().__init__(*args, **kwargs)
         self.update_layout(template="plotly_white")
         self.update_layout(width=600, height=400)
-        self.update_layout(barmode='overlay')
-        self.update_layout(title_text=None)
-        self.update_layout(xaxis_title_text=None)
-        self.update_layout(yaxis_title_text=None)
     def __add__(self,geom):
         temp = gglitely(data=self.data, layout=self.layout, frames=self.frames)
         temp.add_trace(geom)
         return temp
+    def __or__(self,other):
+        n1,n2 = len(self.data),len(self.other)
+        temp = make_subplots(rows=1, cols=n1+n2, start_cell="left")
+        temp.update_layout(template="plotly_white")
+        temp.update_layout(width=600, height=400)        
+        temp.add_traces(self.data)
+        temp.add_traces(other.data)
+        return temp
+        
     def resize(self,width=600,height=400):
         self.update_layout(width=width, height=height)
         return self
@@ -95,6 +100,7 @@ class col(go.Bar):
             color = COL_MAPPING[color]
         kwargs['opacity'] = opacity
         super().__init__(*args, **kwargs)
+
 bar = col 
 
 class boxplot(go.Box):
