@@ -40,8 +40,8 @@ class gglitely(Figure):
         temp.add_trace(geom)
         return temp
     def __or__(self,other):
-        n1,n2 = len(self.data),len(other.data)
-        temp = make_subplots(rows=1, cols=n1+n2, start_cell="left")
+        n1,n2 = len(self.data),len(self.other)
+        temp = make_subplots(rows=1, cols=n1+n2)
         temp.update_layout(template="plotly_white")
         temp.update_layout(width=600, height=400)        
         temp.add_traces(self.data)
